@@ -1,3 +1,5 @@
+# sccache configuration borrowed from @fasterthanlime
+# https://github.com/fasterthanlime/oval/blob/92350822b3be2995b4f4652675d81ece367feebb/.github/workflows/test.yml
 name: Test
 on:
   push:
