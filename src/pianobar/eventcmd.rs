@@ -13,12 +13,13 @@ pub struct ParseEventCmdError(String);
 #[derive(Debug, Clone, PartialEq)]
 pub enum EventCmd {
     ArtistBookmark,
+    SettingsChange,
+    SettingsGet,
     SongBan,
     SongBookmark,
     SongExplain,
     SongFinish,
     SongLove,
-    SongMove,
     SongShelf,
     SongStart,
     StationAddGenre,
@@ -29,13 +30,16 @@ pub enum EventCmd {
     StationDeleteArtistSeed,
     StationDeleteFeedback,
     StationDeleteSongSeed,
+    StationDeleteStationSeed,
+    StationFetchGenre,
     StationFetchInfo,
     StationFetchPlaylist,
-    StationFetchGenre,
+    StationGetModes,
     StationQuickMixToggle,
     StationRename,
-    UserLogin,
+    StationSetMode,
     UserGetStations,
+    UserLogin,
 }
 
 impl FromStr for EventCmd {
@@ -44,12 +48,13 @@ impl FromStr for EventCmd {
     fn from_str(eventcmd: &str) -> Result<Self, Self::Err> {
         Ok(match eventcmd {
             "artistbookmark" => Self::ArtistBookmark,
+            "settingschange" => Self::SettingsChange,
+            "settingsget" => Self::SettingsGet,
             "songban" => Self::SongBan,
             "songbookmark" => Self::SongBookmark,
             "songexplain" => Self::SongExplain,
             "songfinish" => Self::SongFinish,
             "songlove" => Self::SongLove,
-            "songmove" => Self::SongMove,
             "songshelf" => Self::SongShelf,
             "songstart" => Self::SongStart,
             "stationaddgenre" => Self::StationAddGenre,
@@ -60,13 +65,16 @@ impl FromStr for EventCmd {
             "stationdeleteartistseed" => Self::StationDeleteArtistSeed,
             "stationdeletefeedback" => Self::StationDeleteFeedback,
             "stationdeletesongseed" => Self::StationDeleteSongSeed,
+            "stationdeletestationseed" => Self::StationDeleteStationSeed,
+            "stationfetchgenre" => Self::StationFetchGenre,
             "stationfetchinfo" => Self::StationFetchInfo,
             "stationfetchplaylist" => Self::StationFetchPlaylist,
-            "stationfetchgenre" => Self::StationFetchGenre,
+            "stationgetmodes" => Self::StationGetModes,
             "stationquickmixtoggle" => Self::StationQuickMixToggle,
             "stationrename" => Self::StationRename,
-            "userlogin" => Self::UserLogin,
+            "stationsetmode" => Self::StationSetMode,
             "usergetstations" => Self::UserGetStations,
+            "userlogin" => Self::UserLogin,
             _ => return Err(ParseEventCmdError(eventcmd.to_string())),
         })
     }
@@ -87,12 +95,13 @@ mod tests {
     }
 
     #[test_case("artistbookmark", EventCmd::ArtistBookmark ; "artistbookmark")]
+    #[test_case("settingschange", EventCmd::SettingsChange ; "settingschange")]
+    #[test_case("settingsget", EventCmd::SettingsGet ; "settingsget")]
     #[test_case("songban", EventCmd::SongBan ; "songban")]
     #[test_case("songbookmark", EventCmd::SongBookmark ; "songbookmark")]
     #[test_case("songexplain", EventCmd::SongExplain ; "songexplain")]
     #[test_case("songfinish", EventCmd::SongFinish ; "songfinish")]
     #[test_case("songlove", EventCmd::SongLove ; "songlove")]
-    #[test_case("songmove", EventCmd::SongMove ; "songmove")]
     #[test_case("songshelf", EventCmd::SongShelf ; "songshelf")]
     #[test_case("songstart", EventCmd::SongStart ; "songstart")]
     #[test_case("stationaddgenre", EventCmd::StationAddGenre ; "stationaddgenre")]
@@ -103,13 +112,16 @@ mod tests {
     #[test_case("stationdeleteartistseed", EventCmd::StationDeleteArtistSeed ; "stationdeleteartistseed")]
     #[test_case("stationdeletefeedback", EventCmd::StationDeleteFeedback ; "stationdeletefeedback")]
     #[test_case("stationdeletesongseed", EventCmd::StationDeleteSongSeed ; "stationdeletesongseed")]
+    #[test_case("stationdeletestationseed", EventCmd::StationDeleteStationSeed ; "stationdeletestationseed")]
+    #[test_case("stationfetchgenre", EventCmd::StationFetchGenre ; "stationfetchgenre")]
     #[test_case("stationfetchinfo", EventCmd::StationFetchInfo ; "stationfetchinfo")]
     #[test_case("stationfetchplaylist", EventCmd::StationFetchPlaylist ; "stationfetchplaylist")]
-    #[test_case("stationfetchgenre", EventCmd::StationFetchGenre ; "stationfetchgenre")]
+    #[test_case("stationgetmodes", EventCmd::StationGetModes ; "stationgetmodes")]
     #[test_case("stationquickmixtoggle", EventCmd::StationQuickMixToggle ; "stationquickmixtoggle")]
     #[test_case("stationrename", EventCmd::StationRename ; "stationrename")]
-    #[test_case("userlogin", EventCmd::UserLogin ; "userlogin")]
+    #[test_case("stationsetmode", EventCmd::StationSetMode ; "stationsetmode")]
     #[test_case("usergetstations", EventCmd::UserGetStations ; "usergetstations")]
+    #[test_case("userlogin", EventCmd::UserLogin ; "userlogin")]
     fn valid_eventcmd(eventcmd: &str, expected: EventCmd) {
         let eventcmd: EventCmd = eventcmd.parse().expect("Invalid event type");
         assert_eq!(eventcmd, expected);
