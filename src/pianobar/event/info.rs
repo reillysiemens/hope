@@ -5,36 +5,36 @@ use std::{collections::HashMap, str::FromStr};
 #[derive(Debug)]
 pub struct PianobarStatus {
     // Defined by the PianoReturn_t enum, but it's... complicated.
-    code: i32,
-    message: String,
+    pub code: i32,
+    pub message: String,
 }
 
 #[derive(Debug)]
 pub struct CurlStatus {
-    code: i32,
-    message: String,
+    pub code: i32,
+    pub message: String,
 }
 
 #[derive(Debug)]
 pub struct Song {
-    duration: i32,
-    played: i32,
+    pub duration: i32,
+    pub played: i32,
 }
 
 #[derive(Debug)]
 pub struct Info {
-    artist: Option<String>,
-    title: Option<String>,
-    album: Option<String>,
-    cover_art: Option<String>, // TODO: Make this a URL?
-    station_name: Option<String>,
-    song_station_name: Option<String>, // TODO: Is this ever not null?
-    pianobar_status: PianobarStatus,
-    curl_status: CurlStatus,
-    song: Song,
-    rating: i32,
-    detail_url: Option<String>,
-    stations: Vec<String>,
+    pub artist: Option<String>,
+    pub title: Option<String>,
+    pub album: Option<String>,
+    pub cover_art: Option<String>, // TODO: Make this a URL?
+    pub station_name: Option<String>,
+    pub song_station_name: Option<String>, // TODO: Is this ever not null?
+    pub pianobar_status: PianobarStatus,
+    pub curl_status: CurlStatus,
+    pub song: Song,
+    pub rating: i32,
+    pub detail_url: Option<String>,
+    pub stations: Vec<String>,
 }
 
 // Option<String>::filter will return a &String.

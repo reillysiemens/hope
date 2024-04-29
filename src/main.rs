@@ -20,7 +20,7 @@ async fn main() -> anyhow::Result<()> {
             let mut info = String::new();
             std::io::stdin().read_to_string(&mut info)?;
             let info = info.parse()?;
-            let event = Event::new(eventcmd, info);
+            let event = Event { eventcmd, info };
             tracing::debug!("{event:#?}");
         }
         None => tracing::debug!("No eventcmd to handle"),
