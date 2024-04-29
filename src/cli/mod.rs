@@ -6,7 +6,7 @@ mod styles;
 
 use clap::Parser;
 
-use crate::pianobar::eventcmd::EventCmd;
+use crate::pianobar::event::EventCmd;
 
 /// A prettier CLI for pianobar, a console-based Pandora client.
 #[derive(Debug, Parser)]
