@@ -4,13 +4,16 @@
 
 use std::str::FromStr;
 
+use serde::{Deserialize, Serialize};
+
 /// An error which can be returned when parsing an eventcmd.
 #[derive(Debug, PartialEq, thiserror::Error)]
 #[error("Invalid eventcmd: {0}")]
 pub struct ParseEventCmdError(String);
 
 /// A pianobar eventcmd.
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+#[serde(rename_all = "lowercase")]
 pub enum EventCmd {
     ArtistBookmark,
     SettingsChange,

@@ -2,22 +2,24 @@
 
 use std::{collections::HashMap, str::FromStr};
 
+use serde::{Deserialize, Serialize};
+
 /// The status of pianobar's calls to the [Pandora JSON API](https://6xq.net/pandora-apidoc/json/).
-#[derive(Debug)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct PianobarStatus {
     pub code: i32,
     pub message: String,
 }
 
 /// The status of pianobar's HTTP requests using cURL.
-#[derive(Debug)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct CurlStatus {
     pub code: i32,
     pub message: String,
 }
 
 /// Metadata about the currently playing song (if any).
-#[derive(Debug)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct Song {
     pub duration: i32,
     pub played: i32,
@@ -42,7 +44,7 @@ pub struct Song {
 /// station1=A Tribe Called Quest Radio
 /// ...
 /// ```
-#[derive(Debug)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct Info {
     pub artist: Option<String>,
     pub title: Option<String>,

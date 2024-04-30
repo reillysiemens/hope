@@ -4,6 +4,7 @@ mod env;
 mod logging;
 mod styles;
 
+use camino::Utf8PathBuf;
 use clap::Parser;
 
 use crate::pianobar::event::EventCmd;
@@ -22,4 +23,7 @@ pub struct Args {
         default_value_t = logging::LogLevel::default()
     )]
     pub log_level: logging::LogLevel,
+    /// The path to the Unix socket used for IPC
+    #[arg(long, env = env::SOCKET, default_value_t = Utf8PathBuf::from("/tmp/hope.sock"))]
+    pub socket: Utf8PathBuf,
 }
