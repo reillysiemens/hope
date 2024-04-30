@@ -12,7 +12,7 @@ use serde::{Deserialize, Serialize};
 pub struct ParseEventCmdError(String);
 
 /// A pianobar eventcmd.
-#[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
+#[derive(Debug, Copy, Clone, PartialEq, Deserialize, Serialize)]
 #[serde(rename_all = "lowercase")]
 pub enum EventCmd {
     ArtistBookmark,
